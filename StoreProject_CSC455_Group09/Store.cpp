@@ -2,14 +2,40 @@
 #include "Store.h"
 #include <iostream>
 
-void handleShopping() {
+void handleShopping()
+{
     // Code for shopping
     // Placeholder text for testing
     std::cout << "You have selected shopping.";
 }
 
-void handleRewardRedemption() {
+void handleRewardRedemption()
+{
     // Code for redeeming rewards
     // Placeholder text for testing
     std::cout << "You have selected rewards.";
+}
+void handlePointsAwared()
+{
+    // add code here
+}
+
+void handleProductUniqueID()
+{
+    // add code here
+}
+
+void handleProductName()
+{
+    // add code here
+}
+
+void handleProductPrice()
+{
+    // add code here
+}
+
+void handleProductNumber()
+{
+    // add code here
 }
