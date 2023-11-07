@@ -81,9 +81,21 @@ bool handleProductName(const std::string &Proudctname)
     return true;
 }
 
-void handleProductPrice()
+bool handleProductPrice(const std::string &ProductPrice)
 {
-    // add code here
+    // check to see if ProductPrice is a number
+    for (char c : ProductPrice)
+    {
+        if (isdigit(c))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return false;
 }
 
 bool handlePrdouctNumer(const std::string &ProudctNumber)
