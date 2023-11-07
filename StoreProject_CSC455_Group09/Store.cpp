@@ -20,14 +20,65 @@ void handlePointsAwared()
     // add code here
 }
 
-void handleProductUniqueID()
+bool handleProductID(const std::string &ProudctID)
 {
-    // add code here
+    int letterCount = 0;
+    int numCount = 0;
+
+    // Check if the string contains Prod followed by 5 ditgits
+    for (char c : ProudctID)
+    {
+        if (isalpha(c))
+        {
+            letterCount++;
+        }
+        else if (isdigit(c))
+        {
+            if (c != 'Prod')
+            {
+                std::cout << "Must be Prod before numbers." << std::endl;
+                return false;
+            }
+            numCount++;
+            if (numCount != 5)
+            {
+                std::cout << "Username contains too many numbers (only 5 numbers allowed after Prod)." << std::endl;
+                return false;
+            }
+        }
+    }
+
+    /* IS this needed?    if (letterCount < 10)
+        {
+            std::cout << "Username must contain at least 10 letters before numbers." << std::endl;
+            return false;
+        }*/
+
+    // If the string passes all checks, it's a valid username
+    return true;
 }
 
-void handleProductName()
+bool handleProductName(const std::string &Proudctname)
 {
-    // add code here
+    // Check the length of the string
+    if (Proudctname.length() > 12)
+    {
+        std::cout << "Name is too long (maximum 12 characters allowed)." << std::endl;
+        return false;
+    }
+
+    // Check if the string contains only alphabetic characters
+    for (char c : Proudctname)
+    {
+        if (!isalpha(c))
+        {
+            std::cout << "Name contains non-alphabetic characters." << std::endl;
+            return false;
+        }
+    }
+
+    // If the string passes both checks, it's valid
+    return true;
 }
 
 void handleProductPrice()
@@ -35,7 +86,17 @@ void handleProductPrice()
     // add code here
 }
 
-void handleProductNumber()
+bool handlePrdouctNumer(const std::string &ProudctNumber)
 {
-    // add code here
+    int letterCount = 0;
+    int numCount = 0;
+
+    // Check if the string is a ditgit and posstive
+    for (char c : ProudctNumber)
+    {
+        if (isdigit(c) && c > 0)
+        {
+            return true;
+        }
+    }
 }
