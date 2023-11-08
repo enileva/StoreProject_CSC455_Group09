@@ -4,11 +4,27 @@
 #include <string>
 #include <cctype>
 #include <random>
-void handleCustomerRegistration()
+int handleCustomerRegistration(const std::string &customerID, std::string &Username, std::string &FirstName, std::string &LastName, std::string &Age, std::string &RewardPoints)
 {
     // Implementation of customer registration functionality
     // Placeholder text for testing
     std::cout << "You have selected customer registration.";
+    int i = 1;
+    if (
+        handleAge() && handleCreditCard() && handleFirstAndLastName() && handleFirstAndLastName() && handleUserName())
+    {
+        customer.txt.append("customer ", i, " ", customerID, "\n");
+        customer.txt.append("customer ", i, " ", Username, "\n");
+        customer.txt.append("customer ", i, " ", FirstName, "\n");
+        customer.txt.append("customer ", i, " ", LastName), "\n";
+        customer.txt.append("customer ", i, " ", Age), "\n";
+        customer.txt.append("customer ", i, " ", "Total Rewards Points", RewardPoints, "\n", "\n");
+        i = i + 1;
+    }
+    else
+    {
+        std::cout << "you have enterd invaild inputs\n";
+    }
 }
 
 // Checks the validity of username
