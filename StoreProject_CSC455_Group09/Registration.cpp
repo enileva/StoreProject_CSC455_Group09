@@ -4,27 +4,56 @@
 #include <string>
 #include <cctype>
 #include <random>
+#include <sstream>
+#include <fstream>
 int handleCustomerRegistration(const std::string &customerID, std::string &Username, std::string &FirstName, std::string &LastName, std::string &Age, std::string &RewardPoints, std::string &Card)
 {
     // Implementation of customer registration functionality
     // Placeholder text for testing
     std::cout << "You have selected customer registration.";
-    int i = 1;
+
+    // Sets customerInfoFile to write
+    std::ofstream customerInfoFile;
+    std::string customerFileName = "customer.txt";
+    // Sets customerInfoFile to append mode
+    customerInfoFile.open("customers.txt", std::ios::app);
+    int customerCount = 0;
+
     if (
         handleAge(Age) && handleCreditCard(Card) && handleFirstAndLastName(FirstName) && handleFirstAndLastName(LastName) && handleUserName(Username))
     {
-        customer.txt.append("customer ", i, " ", customerID, "\n");
-        customer.txt.append("customer ", i, " ", Username, "\n");
-        customer.txt.append("customer ", i, " ", FirstName, "\n");
-        customer.txt.append("customer ", i, " ", LastName), "\n";
-        customer.txt.append("customer ", i, " ", Age), "\n";
-        customer.txt.append("customer ", i, " ", "Total Rewards Points", RewardPoints, "\n", "\n");
-        i = i + 1;
+        customerCount = handleCustomerCount(customerFileName);
+        // Appending to customer.txt
+        customerInfoFile << "Customer "<< customerCount << " " << customerID << std::endl;
+        customerInfoFile << "Customer "<< customerCount << " " << Username << std::endl;
+        customerInfoFile << "Customer "<< customerCount << " " << FirstName << std::endl;
+        customerInfoFile << "Customer "<< customerCount << " " << LastName << std::endl;
+        customerInfoFile << "Customer "<< customerCount << " " << Age << std::endl;
+        customerInfoFile << "Customer "<< customerCount << " Total Rewards Points" << RewardPoints << std::endl;
+        customerInfoFile << std::endl;
     }
     else
     {
         std::cout << "you have enterd invaild inputs\n";
     }
+
+
+    //int i = 1;
+    //if (
+    //    handleAge(Age) && handleCreditCard(Card) && handleFirstAndLastName(FirstName) && handleFirstAndLastName(LastName) && handleUserName(Username))
+    //{
+    //    customer.txt.append("customer ", i, " ", customerID, "\n");
+    //    customer.txt.append("customer ", i, " ", Username, "\n");
+    //    customer.txt.append("customer ", i, " ", FirstName, "\n");
+    //    customer.txt.append("customer ", i, " ", LastName), "\n";
+    //    customer.txt.append("customer ", i, " ", Age), "\n";
+    //    customer.txt.append("customer ", i, " ", "Total Rewards Points", RewardPoints, "\n", "\n");
+    //    i = i + 1;
+    //}
+    //else
+    //{
+    //    std::cout << "you have enterd invaild inputs\n";
+    //}
 }
 
 // Checks the validity of username
@@ -209,4 +238,53 @@ bool handleRewardsPoint(const std::string &RewardsPoints)
             return true;
         }
     }
+}
+
+// Used to read the previously used customer number
+// Takes in a file and integer and reads n number of lines up
+// from the bottom, then captures what is after the first space
+int readNthLineUp(const std::string& filename, int n) {
+    std::ifstream inputFile(filename); // Open the text file for reading
+    std::string line;
+    std::vector<std::string> lines;
+    if (inputFile.is_open()) {
+        while (std::getline(inputFile, line)) { // Read each line of the file and store them in a vector
+            lines.push_back(line);
+        }
+        // Check if the file contains at least n lines
+        if (lines.size() >= n) {
+            // Split the nth line up from the bottom based on the space character
+            std::istringstream iss(lines[lines.size() - n]);
+            std::string word1, word2;
+            if (iss >> word1 >> word2) {
+                // Convert the second word to an integer and return it
+                try {
+                    int result = std::stoi(word2);
+                    return result;
+                } catch (const std::invalid_argument& e) {
+                    // Handle the case where the second word cannot be converted to an integer
+                    std::cerr << "Error: The second word is not a valid integer." << std::endl;
+                }
+            }
+        } else {
+            // Handle the case where there are not enough lines in the file
+            return 0;
+        }
+        inputFile.close();
+    } else {
+        // Handle the case where the file cannot be opened
+        std::cerr << "Error: Failed to open the file for reading." << std::endl;
+    }
+    // Return a default value
+    return 0;
+}
+
+// Uses readNthLineUp to read the previous customer count
+// increments and returns the count
+int handleCustomerCount(const std::string& filename){
+    int customerCount;
+    // 3 was chosen to ensure the function is not reading 
+    // a blank line at the bottom
+    customerCount = readNthLineUp(filename, 3) + 1;
+    return customerCount;
 }
