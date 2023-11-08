@@ -9,15 +9,34 @@ void handleShopping()
     std::cout << "You have selected shopping.";
 }
 
-void handleRewardRedemption()
+int handleRewardRedemption(const std::string &Redem, std::string &Points)
 {
     // Code for redeeming rewards
     // Placeholder text for testing
     std::cout << "You have selected rewards.";
+    char redemChoice;
+    redemChoice = Redem[0];
+    if (isalpha(redemChoice))
+    {
+        // switch to other cpp file with choice here.
+        switch (redemChoice)
+        {
+        case 'A' && Points == 100:
+            std::cout << "you redemed a 10% off\n";
+            break;
+        case 'B' && Points == 500:
+            std::cout << "you redemed a $10 card\n";
+            break;
+        case 'C' && Points == 2500:
+            std::cout << "you redemed a instore item\n";
+        }
+    }
 }
-void handlePointsAwared()
+int handlePointsAwared(const std::string &Points)
 {
     // add code here
+    Points = Points + '50'; // THIS NEEDS FIXED
+    std::cout << "you have recived 50 more points";
 }
 
 bool handleProductID(const std::string &ProudctID)
