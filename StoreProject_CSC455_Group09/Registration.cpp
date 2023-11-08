@@ -4,14 +4,14 @@
 #include <string>
 #include <cctype>
 #include <random>
-int handleCustomerRegistration(const std::string &customerID, std::string &Username, std::string &FirstName, std::string &LastName, std::string &Age, std::string &RewardPoints)
+int handleCustomerRegistration(const std::string &customerID, std::string &Username, std::string &FirstName, std::string &LastName, std::string &Age, std::string &RewardPoints, std::string &Card)
 {
     // Implementation of customer registration functionality
     // Placeholder text for testing
     std::cout << "You have selected customer registration.";
     int i = 1;
     if (
-        handleAge() && handleCreditCard() && handleFirstAndLastName() && handleFirstAndLastName() && handleUserName())
+        handleAge(Age) && handleCreditCard(Card) && handleFirstAndLastName(FirstName) && handleFirstAndLastName(LastName) && handleUserName(Username))
     {
         customer.txt.append("customer ", i, " ", customerID, "\n");
         customer.txt.append("customer ", i, " ", Username, "\n");
