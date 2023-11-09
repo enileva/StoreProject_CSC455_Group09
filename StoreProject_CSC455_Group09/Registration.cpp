@@ -6,7 +6,19 @@
 #include <random>
 #include <sstream>
 #include <fstream>
-int handleCustomerRegistration(const std::string &customerID, std::string &Username, std::string &FirstName, std::string &LastName, std::string &Age, std::string &RewardPoints, std::string &Card)
+
+bool handleCustomerRegistration(const std::string &customerID, std::string &Username, std::string &FirstName, std::string &LastName, std::string &Age, std::string &RewardPoints, std::string &Card);
+bool handleUserName(const std::string &username);
+bool handleFirstAndLastName(const std::string &name);
+bool handleAge(const std::string &ageStr);
+bool handleCreditCard(const std::string &creditCard);
+std::string generateRandomNumber();
+std::string makeUniqueID();
+bool handleRewardsPoint(const std::string &RewardsPoints);
+int readNthLineUp(const std::string& filename, int n);
+int handleCustomerCount(const std::string& filename);
+
+bool handleCustomerRegistration(const std::string &customerID, std::string &Username, std::string &FirstName, std::string &LastName, std::string &Age, std::string &RewardPoints, std::string &Card)
 {
     // Implementation of customer registration functionality
     // Placeholder text for testing
@@ -16,7 +28,7 @@ int handleCustomerRegistration(const std::string &customerID, std::string &Usern
     std::ofstream customerInfoFile;
     std::string customerFileName = "customer.txt";
     // Sets customerInfoFile to append mode
-    customerInfoFile.open("customers.txt", std::ios::app);
+    customerInfoFile.open("customer.txt", std::ios::app);
     int customerCount = 0;
 
     if (
@@ -31,29 +43,14 @@ int handleCustomerRegistration(const std::string &customerID, std::string &Usern
         customerInfoFile << "Customer "<< customerCount << " " << Age << std::endl;
         customerInfoFile << "Customer "<< customerCount << " Total Rewards Points" << RewardPoints << std::endl;
         customerInfoFile << std::endl;
+        return true;
     }
     else
     {
-        std::cout << "you have enterd invaild inputs\n";
+        std::cerr << "you have enterd invaild inputs\n";
+        return false;
     }
 
-
-    //int i = 1;
-    //if (
-    //    handleAge(Age) && handleCreditCard(Card) && handleFirstAndLastName(FirstName) && handleFirstAndLastName(LastName) && handleUserName(Username))
-    //{
-    //    customer.txt.append("customer ", i, " ", customerID, "\n");
-    //    customer.txt.append("customer ", i, " ", Username, "\n");
-    //    customer.txt.append("customer ", i, " ", FirstName, "\n");
-    //    customer.txt.append("customer ", i, " ", LastName), "\n";
-    //    customer.txt.append("customer ", i, " ", Age), "\n";
-    //    customer.txt.append("customer ", i, " ", "Total Rewards Points", RewardPoints, "\n", "\n");
-    //    i = i + 1;
-    //}
-    //else
-    //{
-    //    std::cout << "you have enterd invaild inputs\n";
-    //}
 }
 
 // Checks the validity of username
