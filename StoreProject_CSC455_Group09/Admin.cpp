@@ -117,6 +117,9 @@ int handleProductRemoval(const string &ProductRemove)
     // Placeholder text for testing
     //products.txt.remove(ProudctRemove);
     cout << "You have selected product removal." << endl;
+    // Removes given product from products text file
+    // Example input: Prod12345
+    removeContentAndFollowingLines("products.txt", ProductRemove);
 
     return 0;
 }
@@ -127,6 +130,9 @@ int handleCustomerRemoval(const string &CustomerRemove)
     // Placeholder text for testing
     //customer.txt.remove(CustomerRemove);
     cout << "You have selected customer removal.";
+    // Removes given customer from text file
+    // Example Input: CustID2017172167
+    removeContentAndFollowingLines("customers.txt", CustomerRemove);
     return 0;
 }
 
@@ -270,3 +276,44 @@ int handleCustomerCount(const string& filename){
     return customerCount;
 }
 */
+
+// Takes in name of file like "customer.txt" or "products.txt" and searches for given content.
+// After finding the content in the file, the function then removes that line and the next lines until there
+// is a gap between lines in the text file
+// Example contentToRemove would be "Prod23421" 
+void removeContentAndFollowingLines(const std::string& filename, const std::string& contentToRemove) {
+    std::ifstream inputFile(filename); // Open the given input file
+    if (!inputFile.is_open()) { // Check if the file is open
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return;
+    }
+    // Open Output file that takes in all lines except ones that are to be removed
+    std::ofstream outputFile("temp.txt");
+    // Check if the file is open
+    if (!outputFile.is_open()) {
+        std::cerr << "Error creating temporary file." << std::endl;
+        inputFile.close();
+        return;
+    }
+    std::string line;
+    bool removeLines = false;  // Flag to indicate if lines should be removed
+    while (std::getline(inputFile, line)) {
+        size_t pos = line.find(contentToRemove); // Check if a line has given contentToRemove
+        if (pos != std::string::npos) {
+            line.erase(pos, contentToRemove.length()); // Remove the line
+            removeLines = true;  // True means lines should be removed
+        }
+
+        if (removeLines) { // Line is skipped if a line is removed
+        } else {
+            outputFile << line << std::endl; // Write the line to the temp file
+        }
+        if (line.empty() && removeLines) { // True when a gap is found
+            removeLines = false;  // Reset the flag
+        }
+    }
+    inputFile.close();
+    outputFile.close();
+    // Replace the original file with the temporary file
+    std::rename("temp.txt", filename.c_str());
+}
