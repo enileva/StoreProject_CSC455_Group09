@@ -9,12 +9,52 @@
 #include <sys/stat.h>
 #include "Registration.h"
 using namespace std;
-void handleShopping()
+
+void handleShopping() // check this function
 {
     // Code for shopping
     // Placeholder text for testing
     cout << "You have selected shopping.";
+    string customerID;
+    char customerChoice;
+    cout << "You have selected rewards." << endl;
+    cout << "Enter customer ID (starts with \"CustID\"): " << endl;
+    ofstream transactionFile;                                // Set to write
+    transactionFile.open("transactions.txt", std::ios::app); // Set to append to products.txt
 
+    cin >> customerID;
+    int customerPoints = searchForCustomerPoints(customerID);
+    if (customerPoints < 0)
+    {
+        cout << "Customer not found." << endl;
+        return;
+    }
+    else
+    {
+        cout << "A. Milk $10." << endl;
+        cout << "B. Eggs $5" << endl;
+        cout << "C. Table $50" << endl;
+        cin >> customerChoice;
+        switch (customerChoice)
+        {
+        case 'A':
+            cout << "You have selected Milk $10";
+            transactionFile << "ID " << customerID << " Product: Milk"
+                            << "Price $10"
+                            << "Total reward points 40 " << endl;
+
+        case 'B':
+            cout << "You have selected Eggs $5";
+            transactionFile << "ID " << customerID << " Product: Eggs"
+                            << "Price $5"
+                            << "Total reward points 20 " << endl;
+        case 'C':
+            cout << "You have selected Table $50";
+            transactionFile << "ID " << customerID << " Product: Table"
+                            << "Price $50"
+                            << "Total reward points 100 " << endl;
+        }
+    }
 }
 void handleRewardRedemption()
 {
@@ -69,8 +109,6 @@ void handleRewardRedemption()
             }
         }
     }
-    
-    
 }
 
 void redeemPoints(string customerID, int customerPoints, int pointsDeducted)
@@ -144,10 +182,10 @@ void redeemPoints(string customerID, int customerPoints, int pointsDeducted)
             else
             {
                 // record found!
-                int pos = (int)strRewardPoints.find(" Total Reward Points: "); // Find position of reward points in string
-                int newCustomerPoints = customerPoints - pointsDeducted; // Get new value of reward points
+                int pos = (int)strRewardPoints.find(" Total Reward Points: ");                           // Find position of reward points in string
+                int newCustomerPoints = customerPoints - pointsDeducted;                                 // Get new value of reward points
                 string strNewCustomerPoints = Registration::getFormattedRewardPoints(newCustomerPoints); // Format points to equal 10 char total
-                strRewardPoints.replace(pos, 10, strNewCustomerPoints); // Replace old points value with new points value
+                strRewardPoints.replace(pos, 10, strNewCustomerPoints);                                  // Replace old points value with new points value
                 // string points = strRewardPoints.substr(pos);
                 myFile.close();
                 return;
@@ -172,7 +210,7 @@ int searchForCustomerPoints(string id)
     }
     string strID;
     int lines = 0;
-    while (getline(myFile, strID)) 
+    while (getline(myFile, strID))
     {
         if (strID.find(id))
         {
@@ -233,7 +271,6 @@ int searchForCustomerPoints(string id)
         }
     }
     myFile.close();
-
 
     return -1;
 }
@@ -308,7 +345,6 @@ bool handleProductID(const string &ProductID)
 return true;
 }
 */
-
 
 bool handleProductName(const string &ProductName)
 {
