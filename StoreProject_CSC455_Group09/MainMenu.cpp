@@ -12,11 +12,12 @@
 
 int main()
 {
+    Registration *Reg = new Registration();
     std::string userInput;
     char menuChoice;
     while (true)
     {
-        std::cout << "Welcome to the Super Rewards� system!\n\n";
+        std::cout << "Welcome to the Super Rewards system!\n\n";
         std::cout << "Please choose from the following options:\n";
         std::cout << "A. Customer registration\n";    // Registration.cpp
         std::cout << "B. Shopping\n";                 // Store.cpp
@@ -24,7 +25,7 @@ int main()
         std::cout << "D. Product addition (admin)\n"; // Admin.cpp
         std::cout << "E. Product removal (admin)\n";  // Admin.cpp
         std::cout << "F. Customer removal (admin)\n"; // Admin.cpp
-        std::cout << "G. View customers (admin)\n";   // Admin.cpp
+        std::cout << "G. View a customer (admin)\n";   // Admin.cpp
         std::cout << "H. Stop the program\n\n";       // Break
 
         std::cin >> userInput;
@@ -40,7 +41,7 @@ int main()
                 switch (menuChoice)
                 {
                 case 'A':
-                    handleCustomerRegistration();
+                    Reg->handleCustomerRegistration();
                     break;
                 case 'B':
                     handleShopping();
@@ -76,6 +77,7 @@ int main()
             std::cout << "Invalid input. Please enter exactly one character." << std::endl;
         }
     }
+    delete Reg;
     return 0;
 }
 

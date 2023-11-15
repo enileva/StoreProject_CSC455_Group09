@@ -1,5 +1,8 @@
 #pragma once
+#include <string>
+using namespace std;
 void handleShopping();
+int searchForCustomerPoints(string id);
 void handleRewardRedemption();
 void handlePointsAwared();
 bool handleProductID();

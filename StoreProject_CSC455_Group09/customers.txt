@@ -1,0 +1,7 @@
+Customer 1 ID: CustID0000000001
+Customer 1 Username: avelinemce123
+Customer 1 First Name: Aveline
+Customer 1 Last Name: McEntire
+Customer 1 Age: 21
+Customer 1 Total Reward Points: 0000000000
+
