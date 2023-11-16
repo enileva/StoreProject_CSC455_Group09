@@ -14,8 +14,8 @@ void handleShopping() // check this function
 {
     // Code for shopping
     // Placeholder text for testing
-    cout << "You have selected shopping.";
-    ofstream productFile;
+    cout << "You have selected shopping." << endl;
+    fstream productFile;
     productFile.open("products.txt", std::ios::in);
     if (productFile.fail())
     {
@@ -76,8 +76,91 @@ void handleShopping() // check this function
         }
         */
     }
-
+    cout << "Products: " << endl;
+    string line;
+    while (getline(productFile, line))
+    {
+        cout << line << endl;
+    }
+    cout << "Please input which product you would like to purchase by product ID (must start with \"Prod\")." << endl;
+    bool productLoop = true;
+    string productID;
+    while (productLoop)
+    {
+        cin >> productID;
+        if (productID.find("Prod"))
+        {
+            productLoop = false;
+            break;
+        }
+        else
+        {
+            cout << "Product ID must start with \"Prod\"." << endl;
+        }
+    }
+    
+    string strID;
+    int lines = 0;
+    while (getline(productFile, strID))
+    {
+        if (strID.find(productID))
+        {
+            string productName;
+            string name;
+            string productPrice;
+            string price;
+            string productInventory;
+            if (!getline(productFile, productName)) // Go through each detail.
+            {
+                name = productName.substr(10);
+                productFile.close();
+                return;
+            }
+            else
+            {
+                // record found!
+            }
+            if (!getline(productFile, productPrice))
+            {
+                productFile.close();
+                return;
+            }
+            else
+            {
+                // record found!
+            }
+            if (!getline(productFile, productInventory))
+            {
+                // todo: remove from inventory
+                productFile.close();
+                return;
+            }
+            else
+            {
+                cout << "Item purchased." << endl;
+                int transactionCount = 1 + Registration::getBaseID("transactions.txt", 6);
+                string transactionID = getNewID(transactionCount);
+                transactionFile << "Transaction ID " << transactionID << endl << "User ID "
+                    << customerID << "Product ID " << productID << "Product Name" << name;
+                productFile.close();
+                return;
+            }
+        }
+        else
+        {
+            cout << "Unable to find product with matching ID." << endl;
+        }
+    }
 }
+
+string getNewID(int ID)
+{
+    char buf[20];
+    sprintf(buf, "%010d", ID);
+    string transactID = buf;
+    return string("Transaction" + transactID);
+}
+
 void handleRewardRedemption()
 {
     string customerID;
@@ -286,7 +369,7 @@ int searchForCustomerPoints(string id)
             {
                 // record found!
                 int pos = (int)strRewardPoints.find(" Total Reward Points: ");
-                string points = strRewardPoints.substr(pos);
+                string points = strRewardPoints.substr(pos + 31);
                 myFile.close();
                 return stoi(points);
             }

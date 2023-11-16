@@ -1,0 +1,5 @@
+Product 1 ID: Prod00001
+Product 1 Name: Example
+Product 1 Price: $2.99
+Product 1 Inventory: 20
+

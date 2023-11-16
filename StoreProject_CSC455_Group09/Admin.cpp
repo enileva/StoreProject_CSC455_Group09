@@ -46,7 +46,7 @@ void Admin::handleProductAddition()
 
         // Gets product count
         int productCount = Registration::getBaseID(productFileName, 5) + 1;
-        string prodID = Registration::getNewID(productCount);
+        string prodID = getNewID(productCount);
         // TODO: Check prodID uniqueness because of product removal....
 
         // Appends to products.txt
@@ -66,7 +66,7 @@ void Admin::handleProductAddition()
     }
 }
 
-string getNewID(int ID)
+string Admin::getNewID(int ID)
 {
     char buf[20];
     sprintf(buf, "%05d", ID);
@@ -104,9 +104,9 @@ bool Admin::handleProductAddition(string &productName, string &productPrice, str
     }
     else
     {
-        /*
-        cerr<< "You have entered invalid information" << endl;
-        */
+        
+        cerr<< "You have entered invalid information." << endl;
+        
         return false;
     }
 }
@@ -212,6 +212,7 @@ bool addProdPrefix(string& numberString) {
 bool isNumeric(const string& str) {
     for (char c : str) {
         if (!isdigit(c)) {
+            cout << "Not numeric." << endl;
             return false; // If any character is not a digit, return false.
         }
     }
@@ -227,7 +228,15 @@ bool isPositive(int num){
 // matches '$' format
 bool isValidDollarFormat(const string& input) {
     regex pattern("\\$\\d+(\\.\\d{2})?");
-    return regex_match(input, pattern);
+    if (regex_match(input, pattern))
+    {
+        return true;
+    }
+    else
+    {
+        cout << "Incorrect price format. Please use USD formatting." << endl;
+        return false;
+    }
 }
 
 // Used to read the previously used product number
@@ -282,12 +291,17 @@ int handleCustomerCount(const string& filename){
 // After finding the content in the file, the function then removes that line and the next lines until there
 // is a gap between lines in the text file
 // Example contentToRemove would be "Prod23421" 
-void Admin::removeContentAndFollowingLines(const std::string& filename, const std::string& contentToRemove) {
+void Admin::removeContentAndFollowingLines(const std::string& filename, const std::string& contentToRemove) 
+{
     std::fstream inputFile(filename, ios::in); // Open the given input file
-    if (inputFile.fail()) { // Check if the file is open
+    if (inputFile.fail()) 
+    { // Check if the file is open
         std::cerr << "Error opening file: " << filename << std::endl;
         return;
     }
+
+    /*
+
     // Open Output file that takes in all lines except ones that are to be removed
     std::ofstream outputFile("temp.txt");
     // Check if the file is open
@@ -296,25 +310,31 @@ void Admin::removeContentAndFollowingLines(const std::string& filename, const st
         inputFile.close();
         return;
     }
-    std::string line;
-    bool removeLines = false;  // Flag to indicate if lines should be removed
-    while (std::getline(inputFile, line)) {
-        size_t pos = line.find(contentToRemove); // Check if a line has given contentToRemove
-        if (pos != std::string::npos) {
-            line.erase(pos, contentToRemove.length()); // Remove the line
-            removeLines = true;  // True means lines should be removed
-        }
 
-        if (removeLines) { // Line is skipped if a line is removed
-        } else {
-            outputFile << line << std::endl; // Write the line to the temp file
-        }
-        if (line.empty() && removeLines) { // True when a gap is found
-            removeLines = false;  // Reset the flag
-        }
+    */
+    std::string line;
+    //bool removeLines = false;  // Flag to indicate if lines should be removed
+    while (std::getline(inputFile, line)) 
+    {
+        size_t pos = line.find(contentToRemove); // Check if a line has given contentToRemove
+        line.erase(pos, line.length());
+            /*
+            if (pos != std::string::npos) {
+                line.erase(pos, contentToRemove.length()); // Remove the line
+                removeLines = true;  // True means lines should be removed
+            }
+
+            if (removeLines) { // Line is skipped if a line is removed
+            } else {
+                outputFile << line << std::endl; // Write the line to the temp file
+            }
+            if (line.empty() && removeLines) { // True when a gap is found
+                removeLines = false;  // Reset the flag
+            }
+            */
     }
     inputFile.close();
-    outputFile.close();
+    //outputFile.close();
     // Replace the original file with the temporary file
-    std::rename("temp.txt", filename.c_str());
+    //std::rename("temp.txt", filename.c_str());
 }
