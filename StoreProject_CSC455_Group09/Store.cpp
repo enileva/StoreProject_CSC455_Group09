@@ -1,4 +1,5 @@
 // Group 09: Aveline McEntire, Brendan Lance, Kaedon Pruiett
+#define _CRT_SECURE_NO_WARNINGS
 #include "Store.h"
 #include <iostream>
 #include <fstream>
