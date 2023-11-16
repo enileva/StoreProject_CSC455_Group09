@@ -283,8 +283,8 @@ int handleCustomerCount(const string& filename){
 // is a gap between lines in the text file
 // Example contentToRemove would be "Prod23421" 
 void Admin::removeContentAndFollowingLines(const std::string& filename, const std::string& contentToRemove) {
-    std::ifstream inputFile(filename); // Open the given input file
-    if (!inputFile.is_open()) { // Check if the file is open
+    std::fstream inputFile(filename, ios::in); // Open the given input file
+    if (inputFile.fail()) { // Check if the file is open
         std::cerr << "Error opening file: " << filename << std::endl;
         return;
     }
