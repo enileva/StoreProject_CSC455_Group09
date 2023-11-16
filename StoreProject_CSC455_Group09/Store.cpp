@@ -15,9 +15,18 @@ void handleShopping() // check this function
     // Code for shopping
     // Placeholder text for testing
     cout << "You have selected shopping.";
+    ofstream productFile;
+    productFile.open("products.txt", std::ios::in);
+    if (productFile.fail())
+    {
+        cout << "Nothing in stock currently. Please await new products." << endl;
+        return;
+    }
+    else
+    {
+        // There are products to buy...
+    }
     string customerID;
-    char customerChoice;
-    cout << "You have selected rewards." << endl;
     cout << "Enter customer ID (starts with \"CustID\"): " << endl;
     ofstream transactionFile;                                // Set to write
     transactionFile.open("transactions.txt", std::ios::app); // Set to append to products.txt
@@ -27,10 +36,20 @@ void handleShopping() // check this function
     if (customerPoints < 0)
     {
         cout << "Customer not found." << endl;
+        if (!transactionFile.fail())
+        {
+            transactionFile.close();
+        }
+        else
+        {
+            // no need to close transaction file if it doesn't exist..
+        }
         return;
     }
     else
     {
+        cout << "Customer found." << endl;
+        /* The shopping page has to be dynamic in order for the admin to put in products.
         cout << "A. Milk $10." << endl;
         cout << "B. Eggs $5" << endl;
         cout << "C. Table $50" << endl;
@@ -53,8 +72,11 @@ void handleShopping() // check this function
             transactionFile << "ID " << customerID << " Product: Table"
                             << "Price $50"
                             << "Total reward points 100 " << endl;
+        
         }
+        */
     }
+
 }
 void handleRewardRedemption()
 {
@@ -360,7 +382,7 @@ bool handleProductName(const string &ProductName)
     {
         if (!isalpha(c))
         {
-            cout << "Name contains non-alphabetic characters." << endl;
+            cout << "Name contains non-alphabetical characters." << endl;
             return false;
         }
     }

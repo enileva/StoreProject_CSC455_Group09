@@ -50,16 +50,16 @@ int main()
                     handleRewardRedemption();
                     break;
                 case 'D':
-                    handleProductAddition();
+                    Admin::handleProductAddition();
                     break;
                 case 'E':
-                    handleProductRemoval();
+                    Admin::handleProductRemoval();
                     break;
                 case 'F':
-                    handleCustomerRemoval();
+                    Admin::handleCustomerRemoval();
                     break;
                 case 'G':
-                    viewCustomers();
+                    Admin::viewCustomers();
                     break;
                 case 'H':
                     break;

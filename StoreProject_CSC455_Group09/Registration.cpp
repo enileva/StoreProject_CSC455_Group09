@@ -23,17 +23,65 @@ void Registration::handleCustomerRegistration()
         
     cout << "Enter the customer's username: " << endl;
     cin >> customerUsername;
+    if (!handleUserName(customerUsername))
+    {
+        return;
+    }
+    else
+    {
+        //continue
+    }
     cout << "Enter the customer's first name: " << endl;
     cin >> customerFirstName;
+    if (!handleFirstAndLastName(customerFirstName))
+    {
+        return;
+    }
+    else
+    {
+        //continue
+    }
     cout << "Enter the customer's last name: " << endl;
     cin >> customerLastName;
+    if (!handleFirstAndLastName(customerLastName))
+    {
+        return;
+    }
+    else
+    {
+        //continue
+    }
     cout << "Enter the customer's age: " << endl;
     cin >> customerAge;
+    if (!handleAge(customerAge))
+    {
+        return;
+    }
+    else
+    {
+        //continue
+    }
     cout << "Enter the customer's credit card: " << endl;
     cin >> customerCreditCard;
+    if (!handleCreditCard(customerCreditCard))
+    {
+        return;
+    }
+    else
+    {
+        //continue
+    }
     cout << "Enter the customer's reward points: " << endl;
     cin >> customerRewardPoints;
-
+    if (!handleAge(customerRewardPoints))
+    {
+        return;
+    }
+    else
+    {
+        //continue
+    }
+    
 
     if (handleCustomerRegistration(customerUsername, customerFirstName, customerLastName, customerAge, customerRewardPoints, customerCreditCard))
     {
@@ -228,7 +276,7 @@ bool Registration::handleFirstAndLastName(const string& name)
     {
         if (!isalpha(c))
         {
-            cout << "Name contains non-alphabetic characters." << endl;
+            cout << "Name contains non-alphabetical characters." << endl;
             return false;
         }
     }
@@ -273,8 +321,10 @@ bool Registration::handleAge(const string& ageStr)
         cout << "Age invalid. Must not start with 0." << endl;
         return false;
     }
-
-    return true;
+    else
+    {
+        return true;
+    }
 }
 
 // Checks validity of credit card
@@ -287,12 +337,20 @@ bool Registration::handleCreditCard(const string& creditCard)
         cout << "Credit card invalid. Incorrect length." << endl;
         return false;
     }
+    else
+    {
+        // Credit car is correct length.
+    }
 
     // Check if it doesn't start with '0'
     if (creditCard[0] == '0')
     {
         cout << "Credit card invalid. Starts with 0." << endl;
         return false;
+    }
+    else
+    {
+        // Credit card does not start with 0.
     }
 
     // Check if the 'x' characters are digits between 0 and 9
@@ -306,6 +364,10 @@ bool Registration::handleCreditCard(const string& creditCard)
                 cout << "Credit card invalid. Format must be XXXX-XXXX-XXXX." << endl;
                 return false;
             }
+            else
+            {
+                // Correct amount and placement of dashes.
+            }
         }
         else
         {
@@ -313,6 +375,10 @@ bool Registration::handleCreditCard(const string& creditCard)
             {
                 cout << "Credit card invalid. Format must be XXXX-XXXX-XXXX." << endl;
                 return false;
+            }
+            else
+            {
+                // Correct chars are digits.
             }
         }
     }

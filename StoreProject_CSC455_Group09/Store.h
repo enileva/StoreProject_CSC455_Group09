@@ -9,3 +9,4 @@ bool handleProductID();
 bool handleProductName();
 bool handleProductPrice();
 bool handleProductNumber();
+void redeemPoints(string customerID, int customerPoints, int pointsDeducted);

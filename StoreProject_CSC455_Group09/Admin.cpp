@@ -23,7 +23,7 @@ int readNthLineUp(const string& filename, int n);
 int handleCustomerCount(const string& filename);
 
 
-void handleProductAddition()
+void Admin::handleProductAddition()
 {
     string productName;
     string productPrice;
@@ -46,7 +46,7 @@ void handleProductAddition()
 
         // Gets product count
         int productCount = Registration::getBaseID(productFileName, 5) + 1;
-        string prodID = getNewID(productCount);
+        string prodID = Registration::getNewID(productCount);
         // TODO: Check prodID uniqueness because of product removal....
 
         // Appends to products.txt
@@ -76,8 +76,8 @@ string getNewID(int ID)
 
 // Takes in all parameters for adding products
 // Adds product with code, name, price, and inventory count to products.txt
-bool handleProductAddition(string &productName, const string &productPrice, string &inventory){
-    
+bool Admin::handleProductAddition(string &productName, string &productPrice, string &inventory)
+{    
     /*
     ofstream productInfoFile; // Set to write
     productInfoFile.open("products.txt", std::ios::app); // Set to append to products.txt
@@ -111,12 +111,11 @@ bool handleProductAddition(string &productName, const string &productPrice, stri
     }
 }
 
-int handleProductRemoval(const string &ProductRemove)
+int Admin::handleProductRemoval(const string &ProductRemove)
 {
     // Implementation of product removal functionality
     // Placeholder text for testing
     //products.txt.remove(ProudctRemove);
-    cout << "You have selected product removal." << endl;
     // Removes given product from products text file
     // Example input: Prod12345
     removeContentAndFollowingLines("products.txt", ProductRemove);
@@ -124,36 +123,38 @@ int handleProductRemoval(const string &ProductRemove)
     return 0;
 }
 
-int handleCustomerRemoval(const string &CustomerRemove)
+int Admin::handleCustomerRemoval(const string &CustomerRemove)
 {
     // Implementation of customer removal functionality
     // Placeholder text for testing
     //customer.txt.remove(CustomerRemove);
-    cout << "You have selected customer removal.";
     // Removes given customer from text file
     // Example Input: CustID2017172167
     removeContentAndFollowingLines("customers.txt", CustomerRemove);
     return 0;
 }
 
-
-
-void handleProductAddition()
+void Admin::handleProductRemoval()
 {
+    string product;
+    cout << "You have selected product removal." << endl;
+    cout << "Please enter the ID of the product you would like to remove (must start with \"Prod\")." << endl;
+    cin >> product;
+    handleProductRemoval(product);
     return;
 }
 
-void handleProductRemoval()
+void Admin::handleCustomerRemoval()
 {
+    string cust;
+    cout << "You have selected customer removal." << endl;
+    cout << "Please enter the ID of the customer you would like to remove (must start with \"CustID\")." << endl;
+    cin >> cust;
+    handleCustomerRemoval(cust);
     return;
 }
 
-void handleCustomerRemoval()
-{
-    return;
-}
-
-void viewCustomers()
+void Admin::viewCustomers()
 {
     // Implementation of viewing customers functionality
     // Placeholder text for testing
@@ -281,7 +282,7 @@ int handleCustomerCount(const string& filename){
 // After finding the content in the file, the function then removes that line and the next lines until there
 // is a gap between lines in the text file
 // Example contentToRemove would be "Prod23421" 
-void removeContentAndFollowingLines(const std::string& filename, const std::string& contentToRemove) {
+void Admin::removeContentAndFollowingLines(const std::string& filename, const std::string& contentToRemove) {
     std::ifstream inputFile(filename); // Open the given input file
     if (!inputFile.is_open()) { // Check if the file is open
         std::cerr << "Error opening file: " << filename << std::endl;
