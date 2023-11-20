@@ -17,6 +17,7 @@ int main()
     char menuChoice;
     while (true)
     {
+        std::cout << "\n";
         std::cout << "Welcome to the Super Rewards system!\n\n";
         std::cout << "Please choose from the following options:\n";
         std::cout << "A. Customer registration\n";    // Registration.cpp
@@ -25,9 +26,10 @@ int main()
         std::cout << "D. Product addition (admin)\n"; // Admin.cpp
         std::cout << "E. Product removal (admin)\n";  // Admin.cpp
         std::cout << "F. Customer removal (admin)\n"; // Admin.cpp
-        std::cout << "G. View a customer (admin)\n";   // Admin.cpp
+        std::cout << "G. View a customer (admin)\n";  // Admin.cpp
         std::cout << "H. Stop the program\n\n";       // Break
 
+        std::cout << "Enter Letter: ";
         std::cin >> userInput;
         // Check if the input string has exactly one character
         if (userInput.length() == 1)
@@ -62,7 +64,7 @@ int main()
                     Admin::viewCustomers();
                     break;
                 case 'H':
-                    break;
+                    exit(0);
                 default:
                     std::cout << "Invalid choice.\n";
                 }
